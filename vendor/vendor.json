@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "jte1GShW3QI3B18zcANnb7mmLC4=",
+			"path": "github.com/nicolai86/couchdb-go",
+			"revision": "4e4afe9efab57fd6ac7854f384c9cbeca3fb7509",
+			"revisionTime": "2017-08-19T16:32:39Z"
+		}
+	],
+	"rootPath": "github.com/nicolai86/terraform-provider-couchdb"
+}
