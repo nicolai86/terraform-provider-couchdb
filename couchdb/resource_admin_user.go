@@ -29,10 +29,11 @@ func resourceAdminUser() *schema.Resource {
 				Description: "Password of the administrator",
 			},
 			"node": {
-				Type:     schema.TypeString,
-				Optional: true,
-				ForceNew: true,
-				Default:  "",
+				Type:        schema.TypeString,
+				Optional:    true,
+				ForceNew:    true,
+				Description: "Node to create admin user one (couchdb 2.x only)",
+				Default:     "",
 			},
 		},
 	}
