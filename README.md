@@ -5,7 +5,8 @@ Terraform Provider
 - [![Gitter chat](https://badges.gitter.im/hashicorp-terraform/Lobby.png)](https://gitter.im/hashicorp-terraform/Lobby)
 - Mailing list: [Google Groups](http://groups.google.com/group/terraform-tool)
 
-<img src="https://cdn.rawgit.com/hashicorp/terraform-website/master/source/assets/images/logo-text.svg" width="600px">
+<img src="https://cdn.rawgit.com/hashicorp/terraform-website/master/content/source/assets/images/logo-hashicorp.svg" width="600px">
+
 
 Requirements
 ------------
@@ -16,23 +17,57 @@ Requirements
 Building The Provider
 ---------------------
 
-Clone repository to: `$GOPATH/src/github.com/hashicorp/terraform-provider-$PROVIDER_NAME`
+Clone repository to: `$GOPATH/src/github.com/nicolai86/terraform-provider-couchdb`
 
 ```sh
-$ mkdir -p $GOPATH/src/github.com/hashicorp; cd $GOPATH/src/github.com/hashicorp
-$ git clone git@github.com:hashicorp/terraform-provider-$PROVIDER_NAME
+$ mkdir -p $GOPATH/src/github.com/nicolai86; cd $GOPATH/src/github.com/nicolai86
+$ git clone git@github.com:nicolai86/terraform-provider-couchdb
 ```
 
 Enter the provider directory and build the provider
 
 ```sh
-$ cd $GOPATH/src/github.com/hashicorp/terraform-provider-$PROVIDER_NAME
+$ cd $GOPATH/src/github.com/nicolai86/terraform-provider-couchdb
 $ make build
 ```
 
 Using the provider
 ----------------------
-## Fill in for each provider
+
+See also `website/doc` folder
+
+```hcl
+provider "couchdb" {
+  endpoint = "http://localhost:5984"
+}
+
+resource "couchdb_admin" "jenny" {
+  name = "jenny"
+  password = "secret" 
+}
+
+resource "couchdb_database" "db1" {
+  name = "example"
+}
+
+resource "couchdb_database_replication" "db2db" {
+  name = "example"
+  source = "${couchdb_database.db1.name}"
+  target = "example-clone"
+  create_target = true
+  continuous = true
+}
+
+resource "couchdb_database_design_document" "test" {
+	database = "${couchdb_database.db1.name}"
+	name = "types"
+
+	view {
+		name = "people"
+		map = "function(doc) { if (doc.type == 'person') { emit(doc); } }"
+	}
+}
+```
 
 Developing the Provider
 ---------------------------

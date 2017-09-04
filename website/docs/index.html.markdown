@@ -47,7 +47,7 @@ resource "couchdb_database_design_document" "test" {
 
 	view {
 		name = "people"
-		map = "func(doc) { if (doc.type == 'person') { emit(doc); } }"
+		map = "function(doc) { if (doc.type == 'person') { emit(doc); } }"
 	}
 }
 ```
